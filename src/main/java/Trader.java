@@ -10,6 +10,8 @@
  * Go through the TODOs below and complete them.
  */
 
+import org.hamcrest.core.IsInstanceOf;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,17 +41,19 @@ public class Trader<T> {
      *       representing the Trader's money. Give the Trader
      *       empty ArrayLists for their inventory and wishlist.
      */
-
-
-
+    public Trader(int money) {
+        this.inventory = new ArrayList<T>();
+        this.wishlist = new ArrayList<T>();
+        this.money = money;
+    }
 
 
     /* TODO: Implement the method addToWishlist that takes an
      *       object of type T and adds it to this Trader's wishlist.
      */
-
-
-
+    public void addToWishlist(T to_add) {
+        this.wishlist.add(to_add);
+    }
 
 
     /* TODO: Implement the method getSellingPrice that takes an
@@ -59,9 +63,13 @@ public class Trader<T> {
      *
      *       We will call this in exchangeMoney().
      */
-
-
-
+    public int getSellingPrice(T to_find) {
+        if (to_find instanceof Tradable) {
+            return ((Tradable) to_find).getPrice();
+        } else {
+            return Tradable.MISSING_PRICE;
+        }
+    }
 
 
     /**
@@ -134,12 +142,11 @@ public class Trader<T> {
         return details.toString();
     }
 
-    public List<T> getWishlist(){
+    public List<T> getWishlist() {
         return this.wishlist;
     }
 
-    public List<T> getInventory(){
+    public List<T> getInventory() {
         return this.inventory;
     }
-
 }
